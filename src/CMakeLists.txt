@@ -28,7 +28,7 @@ list(APPEND dirs ${libtcod_INCLUDE_DIRS}) #adding to dirs for .clang_complete
 # add_subdirectory(<LIB>)
 add_subdirectory(app)
 
-#generating .clang_complete file
+# generating .clang_complete file
 message(STATUS "Generating ${CMAKE_SOURCE_DIR}/.clang_complete")
 #get_property(dirs DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY INCLUDE_DIRECTORIES)
 message(STATUS "dirs=${dirs}")
