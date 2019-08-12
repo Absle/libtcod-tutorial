@@ -43,5 +43,6 @@ int main()
         TCODConsole::flush();
     }
 
+    TCOD_quit();
     return 0;
 }
