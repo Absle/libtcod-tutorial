@@ -2,11 +2,13 @@
 
 int main()
 {
+    bool running = true;
+    
     int screen_width = 80, screen_height = 50;
-    int player_x = 40, player_y = 25;
+    int player_x = 0, player_y = 0;
 
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
-    while(!TCODConsole::isWindowClosed())
+    while(!TCODConsole::isWindowClosed() && running)
     {
         TCOD_key_t key;
         TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
@@ -26,6 +28,10 @@ int main()
 
             case TCODK_RIGHT:
                 ++player_x;
+                break;
+
+            case TCODK_ESCAPE:
+                running = false;
                 break;
 
             default:
