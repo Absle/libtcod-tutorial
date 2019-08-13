@@ -1,17 +1,28 @@
 #include "libtcod.hpp"
+#include "libtuto.hpp"
+
+using namespace Satk;
 
 int main()
 {
     bool running = true;
-    
     int screen_width = 80, screen_height = 50;
-    int player_x = 0, player_y = 0;
+    int player_x = screen_width / 2, player_y = screen_height / 2;
+    TCOD_key_t key;
+    TCOD_mouse_t mouse;
 
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     while(!TCODConsole::isWindowClosed() && running)
     {
-        TCOD_key_t key;
-        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
+        TCODConsole::root->clear();
+        TCODConsole::root->putChar(player_x, player_y, '@');
+        TCODConsole::flush();
+        
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, &mouse);
+        if(key.vk == TCODK_UP)
+        {
+            --player_y;
+        }
         switch(key.vk)
         {
             case TCODK_UP:
@@ -34,13 +45,13 @@ int main()
                 running = false;
                 break;
 
+            case TCODK_ALT:
+                running = false;
+                break;
+
             default:
                 break;
         }
-
-        TCODConsole::root->clear();
-        TCODConsole::root->putChar(player_x, player_y, '@');
-        TCODConsole::flush();
     }
 
     TCOD_quit();
