@@ -25,7 +25,7 @@ set_property(TARGET libtcod PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${libtcod_INC
 list(APPEND dirs ${libtcod_INCLUDE_DIRS}) #adding to dirs for .clang_complete
 
 # add subdirectories, libs first, app second
-# add_subdirectory(<LIB>)
+add_subdirectory(libtuto)
 add_subdirectory(app)
 
 # REMOVED: .clang_complete no longer need after move to VSCode

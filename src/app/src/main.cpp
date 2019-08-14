@@ -2,6 +2,7 @@
 #include "libtuto.hpp"
 
 using namespace Satk;
+using namespace Satk::Input_Manager;
 
 int main()
 {
@@ -18,42 +19,27 @@ int main()
         TCODConsole::root->putChar(player_x, player_y, '@');
         TCODConsole::flush();
         
+        // translate key input to command
         TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, &mouse);
-        if(key.vk == TCODK_UP)
+        cmd_type action_type;
+        cmd_val action_val;
+        std::tie(action_type, action_val) = handle_keys(key); // breaking data out of tuple
+
+        // move command
+        if(action_type == cmd_type::move)
         {
-            --player_y;
+            int dx = action_val.delta[0];
+            int dy = action_val.delta[1];
+            player_x += dx;
+            player_y += dy;
         }
-        switch(key.vk)
+
+        // exit command
+        if(action_type == cmd_type::exit && action_val.flag)
         {
-            case TCODK_UP:
-                --player_y;
-                break;
-
-            case TCODK_DOWN:
-                ++player_y;
-                break;
-
-            case TCODK_LEFT:
-                --player_x;
-                break;
-
-            case TCODK_RIGHT:
-                ++player_x;
-                break;
-
-            case TCODK_ESCAPE:
-                running = false;
-                break;
-
-            case TCODK_ALT:
-                running = false;
-                break;
-
-            default:
-                break;
+            TCOD_quit();
         }
     }
 
-    TCOD_quit();
     return 0;
 }
