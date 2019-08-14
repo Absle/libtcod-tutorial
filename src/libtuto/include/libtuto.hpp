@@ -5,34 +5,38 @@
 
 namespace Satk
 {
-    namespace Input_Manager
+    namespace Input
     {
-        enum cmd_type
+        enum command_type
         {
             exit,
             move,
             nothing
         };
         
-        union cmd_val
+        union command_val
         {
             int delta[2];
             bool flag;
         };
 
-        using cmd = std::tuple<cmd_type, cmd_val>;
+        using command = std::tuple<command_type, command_val>;
 
-        cmd handle_keys(const TCOD_key_t &key);
+        command handle_keys(const TCOD_key_t &key);
     }
 
-    class Entity
+    namespace Game
     {
-    public:
-        void move(int dx, int dy);
+        class Entity
+        {
+            public:
+            void move(int dx, int dy);
 
-    private:
-        int x, y;
-    };
+            private:
+            int x, y;
+        };
+    }
+    
 }
 
 #endif
