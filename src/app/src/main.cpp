@@ -18,8 +18,8 @@ int main()
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     //TCODConsole::TCODConsole con(screen_width, screen_height);
     TCODConsole con = TCODConsole(screen_width, screen_height);
-    con.setDefaultForeground(TCOD_white);
-    con.setDefaultBackground(TCOD_black);
+    con.setDefaultForeground(TCODColor::white);
+    con.setDefaultBackground(TCODColor::black);
 
     // game loop
     while(!TCODConsole::isWindowClosed() && running)
