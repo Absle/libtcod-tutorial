@@ -9,6 +9,12 @@ namespace
         Input::command_val f = {true};
         return std::make_tuple(Input::command_type::exit, f);
     }
+
+    Input::command fullscreen_command()
+    {
+        Input::command_val f = {true};
+        return std::make_tuple(Input::command_type::fullscreen, f);
+    }
     
     Input::command move_command(int dx, int dy)
     {
@@ -46,6 +52,12 @@ Input::command Input::handle_keys(const TCOD_key_t &key)
     else if(key.vk == TCODK_RIGHT)
     {
         return move_command(right, 0);
+    }
+
+    // fullscreen
+    if(key.vk == TCODK_ENTER && key.lalt)
+    {
+        return fullscreen_command();
     }
 
     // exit the game

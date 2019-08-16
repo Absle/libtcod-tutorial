@@ -50,6 +50,12 @@ int main()
             player_y += dy;
         }
 
+        // fullscreen command
+        if(action_type == Input::command_type::fullscreen)
+        {
+            TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
+        }
+
         // exit command
         if(action_type == Input::command_type::exit && action_val.flag)
         {

@@ -10,6 +10,7 @@ namespace Satk
         enum command_type
         {
             exit,
+            fullscreen,
             move,
             nothing
         };
