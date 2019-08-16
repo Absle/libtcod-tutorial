@@ -1,6 +1,6 @@
 add_library(
     libtuto STATIC
-    src/input_manager.cpp
+    src/Input.cpp
 )
 
 target_include_directories(
