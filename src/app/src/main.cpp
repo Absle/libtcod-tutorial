@@ -6,11 +6,11 @@ using namespace Satk;
 int main()
 {
     bool running = true;
-    int screen_width = 80, screen_height = 50;
+    int screen_width = 160, screen_height = 100;
     TCOD_key_t key;
     TCOD_mouse_t mouse;
     Game::Entity player(screen_width/2, screen_height/2, '@', TCODColor::white);
-    
+
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     TCODConsole con = TCODConsole(screen_width, screen_height);
     con.setDefaultForeground(TCODColor::white);
@@ -22,7 +22,7 @@ int main()
         
         // constructing console
         con.clear();
-        con.putChar(player.get_x(), player.get_y(), '@');
+        con.putChar(player.x, player.y, '@');
         
         // putting constructed console onto root
         TCODConsole::root->clear();

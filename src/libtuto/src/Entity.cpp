@@ -3,17 +3,17 @@
 using namespace Satk;
 using namespace Satk::Game;
 
-// TODO: put in initializer list
-Entity::Entity(int xi, int yi, char symboli, TCODColor colori)
+Entity::Entity(int xi, int yi, char symboli, TCODColor colori) :
+_x(xi), x(_x),
+_y(yi), y(_y),
+_symbol(symboli), symbol(_symbol),
+_color(colori), color(_color)
 {
-    x = xi;
-    y = yi;
-    symbol = symboli;
-    color = colori;
+
 }
 
 void Entity::move(int dx, int dy)
 {
-    x += dx;
-    y += dy;
+    _x += dx;
+    _y += dy;
 }
