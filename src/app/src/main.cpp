@@ -3,20 +3,19 @@
 
 using namespace Satk;
 
-const float transparent_alpha = 0.0f;
-const float opaque_alpha = 1.0f;
-
 int main()
 {
     bool running = true;
     int screen_width = 80, screen_height = 50;
-    int player_x = screen_width / 2, player_y = screen_height / 2;
-    
+    //int player_x = screen_width / 2, player_y = screen_height / 2;
+
+    //Game::Entity player = Game::Entity::Entity(screen_width/2, screen_height/2, '@', TCODColor::white);
+    Game::Entity player(screen_width/2, screen_height/2, '@', TCODColor::white);
+
     TCOD_key_t key;
     TCOD_mouse_t mouse;
 
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
-    //TCODConsole::TCODConsole con(screen_width, screen_height);
     TCODConsole con = TCODConsole(screen_width, screen_height);
     con.setDefaultForeground(TCODColor::white);
     con.setDefaultBackground(TCODColor::black);
@@ -27,7 +26,7 @@ int main()
         
         // constructing console
         con.clear();
-        con.putChar(player_x, player_y, '@');
+        con.putChar(player.get_x(), player.get_y(), '@');
         
         // putting constructed console onto root
         TCODConsole::root->clear();
@@ -46,8 +45,7 @@ int main()
         {
             int dx = action_val.delta[0];
             int dy = action_val.delta[1];
-            player_x += dx;
-            player_y += dy;
+            player.move(dx, dy);
         }
 
         // fullscreen command

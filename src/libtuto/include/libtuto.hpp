@@ -2,6 +2,7 @@
 #define LIBTUTO_H
 
 #include "libtcod.hpp"
+#include "Entity.hpp"
 
 namespace Satk
 {
@@ -28,14 +29,7 @@ namespace Satk
 
     namespace Game
     {
-        class Entity
-        {
-            public:
-            void move(int dx, int dy);
-
-            private:
-            int x, y;
-        };
+        class Entity;
     }
     
 }

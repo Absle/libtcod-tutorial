@@ -1,10 +1,11 @@
 add_library(
     libtuto STATIC
     src/Input.cpp
+    src/Entity.cpp
 )
 
 target_include_directories(
-    libtuto 
+    libtuto
     INTERFACE include
     PRIVATE include
 )
