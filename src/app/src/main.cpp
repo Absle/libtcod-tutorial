@@ -7,14 +7,10 @@ int main()
 {
     bool running = true;
     int screen_width = 80, screen_height = 50;
-    //int player_x = screen_width / 2, player_y = screen_height / 2;
-
-    //Game::Entity player = Game::Entity::Entity(screen_width/2, screen_height/2, '@', TCODColor::white);
-    Game::Entity player(screen_width/2, screen_height/2, '@', TCODColor::white);
-
     TCOD_key_t key;
     TCOD_mouse_t mouse;
-
+    Game::Entity player(screen_width/2, screen_height/2, '@', TCODColor::white);
+    
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     TCODConsole con = TCODConsole(screen_width, screen_height);
     con.setDefaultForeground(TCODColor::white);
@@ -31,7 +27,6 @@ int main()
         // putting constructed console onto root
         TCODConsole::root->clear();
         TCODConsole::blit(&con, 0, 0, 0, 0, TCODConsole::root, 0, 0);
-        //TCODConsole::root->putChar(player_x, player_y, '@');
         TCODConsole::flush();
         
         // translate key input to command
