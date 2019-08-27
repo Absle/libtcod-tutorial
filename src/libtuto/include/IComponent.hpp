@@ -8,16 +8,23 @@
 
 namespace Satk
 {
+    /* TODO
     namespace
     {
         void (*removal_function[Satk::CMP_NUM])(Satk::entity_id eid, std::vector<Satk::entity_mask> &entities);
     }
+    */
+
+    void register_component(Cmp_Types t, void (*rem_f)(entity_id, std::vector<entity_mask>&));
+    void remove_component_by_type(entity_id eid, std::vector<entity_mask> &entities, Cmp_Types cmp_t);
 
     template<class TCmp, Cmp_Types t ,class... Args>
     class IComponent
     {
         protected:
         IComponent(){}
+
+
         public:
         static bool registered;
         static std::vector<TCmp> vec;
@@ -25,13 +32,15 @@ namespace Satk
         static cmp_mask mask;
 
         virtual entity_id owner() =0;
+
         static void add_component(entity_id eid, std::vector<entity_mask> &entities, Args... args)
         {
             // first time the component is created, register it
             if(!registered)
             {
-                removal_function[t] = Satk::IComponent<TCmp, t, Args...>::remove_component;
+                // removal_function[t] = Satk::IComponent<TCmp, t, Args...>::remove_component;
                 registered = true;
+                Satk::register_component(t, remove_component);
             }
             TCmp c = TCmp::_create(eid, args...);
             vec.push_back(c);
@@ -39,6 +48,7 @@ namespace Satk
             id_table.insert(std::map<Satk::entity_id, Satk::cmp_id>::value_type(eid, cid));
             entities[eid] |= mask;
         }
+
         static void remove_component(entity_id eid, std::vector<entity_mask> &entities)
         {
             // TODO:
@@ -67,8 +77,6 @@ namespace Satk
     
     template<class TCmp, Satk::Cmp_Types t, class... Args>
     Satk::cmp_mask Satk::IComponent<TCmp, t, Args...>::mask = 1 << t;
-
-    void remove_component_by_type(entity_id eid, std::vector<entity_mask> &entities, Cmp_Types cmp_t);
 }
 
 #endif

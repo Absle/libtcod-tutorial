@@ -29,7 +29,8 @@ int main()
 
     std::cout << p << " : " << entities[p] << std::endl;
     std::cout << Cmp_Position::vec.size() << std::endl;
-    Cmp_Position::remove_component(p, entities);
+    //Cmp_Position::remove_component(p, entities);
+    Satk::remove_component_by_type(p, entities, Cmp_Types::CMP_POSITION);
     std::cout << p << " : " << entities[p] << std::endl;
     std::cout << Cmp_Position::vec.size() << '\n' << std::endl;
 
