@@ -1,7 +1,9 @@
 add_library(
     libtuto STATIC
-    src/Input.cpp
+    src/Cmp_Position.cpp
     src/Entity.cpp
+    src/IComponent.cpp
+    src/Input.cpp
 )
 
 target_include_directories(

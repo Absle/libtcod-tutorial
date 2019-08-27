@@ -11,6 +11,32 @@ int main()
     TCOD_mouse_t mouse;
     Game::Entity player(screen_width/2, screen_height/2, '@', TCODColor::white);
 
+    // TODO: test
+    std::vector<Satk::entity_mask> entities;
+    entities.push_back(0);
+    entity_id p = entities.size() - 1;
+    std::cout << p << " : " << entities[p] << std::endl;
+    Cmp_Position::add_component(p, entities, 1, 1);
+    std::cout << p << " : " << entities[p] << std::endl;
+    std::cout << Cmp_Position::vec[Cmp_Position::id_table[p]].x << ", " << Cmp_Position::vec[Cmp_Position::id_table[p]].y << '\n' << std::endl;
+
+    entities.push_back(0);
+    entity_id p2 = entities.size() - 1;
+    std::cout << p2 << " : " << entities[p2] << std::endl;
+    Cmp_Position::add_component(p2, entities, 2, 2);
+    std::cout << p2 << " : " << entities[p2] << std::endl;
+    std::cout << Cmp_Position::vec[Cmp_Position::id_table[p2]].x << ", " << Cmp_Position::vec[Cmp_Position::id_table[p2]].y << '\n' << std::endl;
+
+    std::cout << p << " : " << entities[p] << std::endl;
+    std::cout << Cmp_Position::vec.size() << std::endl;
+    Cmp_Position::remove_component(p, entities);
+    std::cout << p << " : " << entities[p] << std::endl;
+    std::cout << Cmp_Position::vec.size() << '\n' << std::endl;
+
+    std::cout << p2 << " : " << entities[p2] << std::endl;
+    std::cout << Cmp_Position::vec[Cmp_Position::id_table[p2]].x << ", " << Cmp_Position::vec[Cmp_Position::id_table[p2]].y << '\n' << std::endl;
+
+
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     TCODConsole con = TCODConsole(screen_width, screen_height);
     con.setDefaultForeground(TCODColor::white);
@@ -19,7 +45,6 @@ int main()
     // game loop
     while(!TCODConsole::isWindowClosed() && running)
     {
-        
         // constructing console
         con.clear();
         con.putChar(player.x, player.y, '@');
