@@ -8,13 +8,6 @@
 
 namespace Satk
 {
-    /* TODO
-    namespace
-    {
-        void (*removal_function[Satk::CMP_NUM])(Satk::entity_id eid, std::vector<Satk::entity_mask> &entities);
-    }
-    */
-
     void register_component(Cmp_Types t, void (*rem_f)(entity_id, std::vector<entity_mask>&));
     void remove_component_by_type(entity_id eid, std::vector<entity_mask> &entities, Cmp_Types cmp_t);
 
@@ -35,23 +28,23 @@ namespace Satk
 
         static void add_component(entity_id eid, std::vector<entity_mask> &entities, Args... args)
         {
-            // first time the component is created, register it
+            // first time the component is created, register its removal function
             if(!registered)
             {
-                // removal_function[t] = Satk::IComponent<TCmp, t, Args...>::remove_component;
                 registered = true;
                 Satk::register_component(t, remove_component);
             }
+
+            // creating and inserting component
             TCmp c = TCmp::_create(eid, args...);
             vec.push_back(c);
             Satk::cmp_id cid = vec.size() - 1;
-            id_table.insert(std::map<Satk::entity_id, Satk::cmp_id>::value_type(eid, cid));
+            id_table.insert(std::map<Satk::entity_id, Satk::cmp_id>::value_type(eid, cid)); // mapping eid to cid
             entities[eid] |= mask;
         }
 
         static void remove_component(entity_id eid, std::vector<entity_mask> &entities)
         {
-            // TODO:
             // remove bit from entity mask
             Satk::entity_mask temp_mask = mask;
             temp_mask.flip();
@@ -64,6 +57,11 @@ namespace Satk
 
             id_table[vec[cid].owner()] = cid; // remap entity of former back component to the component's new swapped position
             id_table.erase(eid); // remove mapping of eid
+        }
+
+        static TCmp& get_component(entity_id eid)
+        {
+            return vec[id_table[eid]];
         }
     };
     template<class TCmp, Satk::Cmp_Types t, class... Args>
