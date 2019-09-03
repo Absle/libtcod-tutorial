@@ -2,60 +2,60 @@
 #define ICOMPONENT_H
 
 #include "Defs.hpp"
-
+//#include "IComponent_Base.hpp" // TODO remove
 #include <map>
+#include <memory>
 #include <vector>
 
 namespace Satk
 {
-    void register_component(Cmp_Types t, void (*rem_f)(entity_id, std::vector<entity_mask>&));
-    void remove_component_by_type(entity_id eid, std::vector<entity_mask> &entities, Cmp_Types cmp_t);
-
-    template<class TCmp, Cmp_Types t ,class... Args>
+    template<class TCmp, Cmp_Types t>
     class IComponent
     {
         protected:
-        IComponent(){}
-
-
-        public:
-        static bool registered;
+        IComponent(entity_id eid) : owner_id(eid){}
+        //static bool registered; // TODO: remove
         static std::vector<TCmp> vec;
         static std::map<entity_id, cmp_id> id_table;
-        static cmp_mask mask;
+        entity_id owner_id;
 
-        virtual entity_id owner() =0;
+        public:
+        entity_id owner(){ return owner_id; }
+        const static cmp_mask mask;
+        //static cmp_mask mask(){ return mask; }
 
-        static void add_component(entity_id eid, std::vector<entity_mask> &entities, Args... args)
+        static void add_component(entity_id eid, std::vector<entity_mask> &entities)
         {
             // first time the component is created, register its removal function
+            /* TODO: remove registration process
             if(!registered)
             {
                 registered = true;
                 Satk::register_component(t, remove_component);
             }
+            */
 
             // creating and inserting component
-            TCmp c = TCmp::_create(eid, args...);
+            TCmp c = TCmp::_create(eid);
             vec.push_back(c);
-            Satk::cmp_id cid = vec.size() - 1;
-            id_table.insert(std::map<Satk::entity_id, Satk::cmp_id>::value_type(eid, cid)); // mapping eid to cid
+            cmp_id cid = vec.size() - 1;
+            id_table.insert(std::map<entity_id, cmp_id>::value_type(eid, cid)); // mapping eid to cid
             entities[eid] |= mask;
         }
 
         static void remove_component(entity_id eid, std::vector<entity_mask> &entities)
         {
             // remove bit from entity mask
-            Satk::entity_mask temp_mask = mask;
+            entity_mask temp_mask = mask;
             temp_mask.flip();
             entities[eid] &= temp_mask;
 
             // swap and pop_back component object out of vector
-            Satk::cmp_id cid = id_table.find(eid)->second;
+            cmp_id cid = id_table.find(eid)->second;
             std::iter_swap(vec.begin() + cid, vec.end() - 1);
             vec.pop_back();
 
-            id_table[vec[cid].owner()] = cid; // remap entity of former back component to the component's new swapped position
+            id_table[vec[cid].owner_id] = cid; // remap entity of former back component to the component's new swapped position
             id_table.erase(eid); // remove mapping of eid
         }
 
@@ -64,17 +64,18 @@ namespace Satk
             return vec[id_table[eid]];
         }
     };
-    template<class TCmp, Satk::Cmp_Types t, class... Args>
-    bool Satk::IComponent<TCmp, t, Args...>::registered = false;
+    // TODO: remove
+    //template<class TCmp, Cmp_Types t>
+    //bool IComponent<TCmp, t>::registered = false;
     
-    template<class TCmp, Satk::Cmp_Types t, class... Args>
-    std::vector<TCmp> Satk::IComponent<TCmp, t, Args...>::vec;
+    template<class TCmp, Cmp_Types t>
+    std::vector<TCmp> IComponent<TCmp, t>::vec;
     
-    template<class TCmp, Satk::Cmp_Types t, class... Args>
-    std::map<Satk::entity_id, Satk::cmp_id> Satk::IComponent<TCmp, t, Args...>::id_table;
+    template<class TCmp, Cmp_Types t>
+    std::map<entity_id, cmp_id> IComponent<TCmp, t>::id_table;
     
-    template<class TCmp, Satk::Cmp_Types t, class... Args>
-    Satk::cmp_mask Satk::IComponent<TCmp, t, Args...>::mask = 1 << t;
+    template<class TCmp, Cmp_Types t>
+    const cmp_mask IComponent<TCmp, t>::mask = 1 << t;
 }
 
 #endif
