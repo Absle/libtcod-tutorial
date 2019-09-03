@@ -19,45 +19,6 @@ int main()
     emgr.add<Cmp_Sprite>(player);
     emgr.get<Cmp_Sprite>(player).ascii = '@';
     emgr.get<Cmp_Sprite>(player).color = TCODColor::white;
-    
-    // entities.push_back(0);
-    // entity_id player = entities.size() - 1;
-    // Cmp_Position::add_component(player, entities, screen_width/2, screen_height/2);
-    // Cmp_Move::add_component(player, entities, 0, 0);
-    // Cmp_Sprite::add_component(player, entities, '@', TCODColor::white);
-
-    //Game::Entity player(screen_width/2, screen_height/2, '@', TCODColor::white); // TODO: remove
-
-    // TODO: test
-    /*
-    std::vector<Satk::entity_mask> entities;
-    entities.push_back(0);
-    entity_id p = entities.size() - 1;
-    std::cout << p << " : " << entities[p] << std::endl;
-    Cmp_Position::add_component(p, entities, 1, 1);
-    std::cout << p << " : " << entities[p] << std::endl;
-    std::cout << Cmp_Position::vec[Cmp_Position::id_table[p]].x << ", " << Cmp_Position::vec[Cmp_Position::id_table[p]].y << '\n' << std::endl;
-
-    entities.push_back(0);
-    entity_id p2 = entities.size() - 1;
-    std::cout << p2 << " : " << entities[p2] << std::endl;
-    Cmp_Position::add_component(p2, entities, 2, 2);
-    std::cout << p2 << " : " << entities[p2] << std::endl;
-    std::cout << Cmp_Position::vec[Cmp_Position::id_table[p2]].x << ", " << Cmp_Position::vec[Cmp_Position::id_table[p2]].y << '\n' << std::endl;
-
-    std::cout << p << " : " << entities[p] << std::endl;
-    std::cout << Cmp_Position::vec.size() << std::endl;
-    //Cmp_Position::remove_component(p, entities);
-    Satk::remove_component_by_type(p, entities, Cmp_Types::CMP_POSITION);
-    std::cout << p << " : " << entities[p] << std::endl;
-    std::cout << Cmp_Position::vec.size() << '\n' << std::endl;
-
-    std::cout << p2 << " : " << entities[p2] << std::endl;
-    std::cout << Cmp_Position::vec[Cmp_Position::id_table[p2]].x << ", " << Cmp_Position::vec[Cmp_Position::id_table[p2]].y << '\n' << std::endl;
-    Cmp_Position::get_component(p2).x += 1;
-    Cmp_Position::get_component(p2).y += 1;
-    std::cout << Cmp_Position::vec[Cmp_Position::id_table[p2]].x << ", " << Cmp_Position::vec[Cmp_Position::id_table[p2]].y << '\n' << std::endl;
-    */
 
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     TCODConsole con = TCODConsole(screen_width, screen_height);
@@ -66,13 +27,8 @@ int main()
 
     // primary game loop
     while(!TCODConsole::isWindowClosed() && running)
-    {
-        // // constructing console
-        // con.clear();
-        // //TODO: proper rendering and entity loop (probably here?)
-        // con.putChar(Cmp_Position::get_component(player).x, Cmp_Position::get_component(player).y, Cmp_Sprite::get_component(player).ascii);
-        
-        // blitting constructed console onto root
+    {   
+        // blitting console rendered last loop onto root
         TCODConsole::root->clear();
         TCODConsole::blit(&con, 0, 0, 0, 0, TCODConsole::root, 0, 0);
         TCODConsole::flush();

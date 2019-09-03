@@ -1,4 +1,4 @@
-/* TODO: remove this file
+/* TODO: remove/fix this file
 #include "IComponent.hpp"
 
 namespace

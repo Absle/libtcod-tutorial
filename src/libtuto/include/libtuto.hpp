@@ -6,7 +6,6 @@
 #include "Cmp_Sprite.hpp"
 #include "Defs.hpp"
 #include "Entity_Manager.hpp"
-#include "Entity.hpp"
 #include "IComponent.hpp"
 #include "Input.hpp"
 #include "System.hpp"
@@ -15,17 +14,9 @@
 
 namespace Satk
 {
-    namespace Input{} // implemented externally
-
-    namespace Game
-    {
-        class Entity;
-    }
-
-    //TODO: remove
-    //class Cmp_Move;
-    //class Cmp_Position;
-    //class Cmp_Sprite;
+    // implemented externally
+    namespace Input{}
+    namespace System{}
 }
 
 #endif

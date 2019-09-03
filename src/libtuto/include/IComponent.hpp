@@ -2,7 +2,6 @@
 #define ICOMPONENT_H
 
 #include "Defs.hpp"
-//#include "IComponent_Base.hpp" // TODO remove
 #include <map>
 #include <memory>
 #include <vector>
@@ -14,7 +13,7 @@ namespace Satk
     {
         protected:
         IComponent(entity_id eid) : owner_id(eid){}
-        //static bool registered; // TODO: remove
+        //static bool registered; // TODO: remove/fix
         static std::vector<TCmp> vec;
         static std::map<entity_id, cmp_id> id_table;
         entity_id owner_id;
@@ -27,7 +26,7 @@ namespace Satk
         static void add_component(entity_id eid, std::vector<entity_mask> &entities)
         {
             // first time the component is created, register its removal function
-            /* TODO: remove registration process
+            /* TODO: remove/fix registration process
             if(!registered)
             {
                 registered = true;
@@ -64,7 +63,7 @@ namespace Satk
             return vec[id_table[eid]];
         }
     };
-    // TODO: remove
+    // TODO: remove/fix
     //template<class TCmp, Cmp_Types t>
     //bool IComponent<TCmp, t>::registered = false;
     

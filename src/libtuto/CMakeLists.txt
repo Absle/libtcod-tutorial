@@ -4,7 +4,6 @@ add_library(
     src/Cmp_Position.cpp
     src/Cmp_Sprite.cpp
     src/Entity_Manager.cpp
-    src/Entity.cpp
     src/Input.cpp
     src/System.cpp
 )
