@@ -8,13 +8,13 @@
 
 namespace Satk
 {
-    template<class TCmp, Cmp_Types t>
+    template<class Cmp_T, Cmp_Types t>
     class IComponent
     {
         protected:
         IComponent(entity_id eid) : owner_id(eid){}
         //static bool registered; // TODO: remove/fix
-        static std::vector<TCmp> vec;
+        static std::vector<Cmp_T> vec;
         static std::map<entity_id, cmp_id> id_table;
         entity_id owner_id;
 
@@ -35,7 +35,7 @@ namespace Satk
             */
 
             // creating and inserting component
-            TCmp c = TCmp::_create(eid);
+            Cmp_T c = Cmp_T::_create(eid);
             vec.push_back(c);
             cmp_id cid = vec.size() - 1;
             id_table.insert(std::map<entity_id, cmp_id>::value_type(eid, cid)); // mapping eid to cid
@@ -58,23 +58,23 @@ namespace Satk
             id_table.erase(eid); // remove mapping of eid
         }
 
-        static TCmp& get_component(entity_id eid)
+        static Cmp_T& get_component(entity_id eid)
         {
             return vec[id_table[eid]];
         }
     };
     // TODO: remove/fix
-    //template<class TCmp, Cmp_Types t>
-    //bool IComponent<TCmp, t>::registered = false;
+    //template<class Cmp_T, Cmp_Types t>
+    //bool IComponent<Cmp_T, t>::registered = false;
     
-    template<class TCmp, Cmp_Types t>
-    std::vector<TCmp> IComponent<TCmp, t>::vec;
+    template<class Cmp_T, Cmp_Types t>
+    std::vector<Cmp_T> IComponent<Cmp_T, t>::vec;
     
-    template<class TCmp, Cmp_Types t>
-    std::map<entity_id, cmp_id> IComponent<TCmp, t>::id_table;
+    template<class Cmp_T, Cmp_Types t>
+    std::map<entity_id, cmp_id> IComponent<Cmp_T, t>::id_table;
     
-    template<class TCmp, Cmp_Types t>
-    const cmp_mask IComponent<TCmp, t>::mask = 1 << t;
+    template<class Cmp_T, Cmp_Types t>
+    const cmp_mask IComponent<Cmp_T, t>::mask = 1 << t;
 }
 
 #endif
