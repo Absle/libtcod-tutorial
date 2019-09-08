@@ -69,7 +69,7 @@ int main()
         for(int eid = 0 ; eid < emgr.entities().size() ; ++eid)
         {
             System::move_system(emgr, eid);
-            System::render_system(emgr, eid, con);
+            System::entity_render_system(emgr, eid, con);
         }
     }
 

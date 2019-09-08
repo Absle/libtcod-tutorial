@@ -13,7 +13,7 @@ namespace Satk
     namespace System
     {
         void move_system(Entity_Manager &emgr, entity_id eid);
-        void render_system(Entity_Manager &emgr, entity_id eid, TCODConsole &con);
+        void entity_render_system(Entity_Manager &emgr, entity_id eid, TCODConsole &con);
     }
 }
 

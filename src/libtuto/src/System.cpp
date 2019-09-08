@@ -17,7 +17,7 @@ namespace Satk
             emgr.get<Cmp_Move>(eid).dy = 0;
         }
 
-        void render_system(Entity_Manager &emgr, entity_id eid, TCODConsole &con)
+        void entity_render_system(Entity_Manager &emgr, entity_id eid, TCODConsole &con)
         {
             // return if entity does not have relevant components
             cmp_mask render_mask = Cmp_Position::mask | Cmp_Sprite::mask;
