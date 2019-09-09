@@ -6,8 +6,6 @@
 #include <cassert>
 #include <vector>
 
-#include <iostream> // TODO: test
-
 namespace Satk
 {
     namespace Component

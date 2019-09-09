@@ -15,8 +15,6 @@ namespace Satk
             assert(add_a[cmp_num] == nullptr && rem_a[cmp_num] == nullptr); // ensure each component is registered exactly once
             add_a[cmp_num] = add;
             rem_a[cmp_num] = rem;
-
-            std::cout << "registered cmp_num: " << cmp_num << std::endl;
             return true;
         }
     }
