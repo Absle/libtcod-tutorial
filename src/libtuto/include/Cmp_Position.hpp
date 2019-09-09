@@ -29,7 +29,7 @@ namespace Satk
         int x, y;
 
         // members all components must have
-        static Cmp_Position _create(entity_id eid);
+        static Cmp_Position _create(entity_id eid){ return Cmp_Position(eid); }
     };
 }
 

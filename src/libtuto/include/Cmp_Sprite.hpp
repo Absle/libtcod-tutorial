@@ -22,7 +22,7 @@ namespace Satk
         TCODColor color;
 
         // members all components must have
-        static Cmp_Sprite _create(entity_id eid);
+        static Cmp_Sprite _create(entity_id eid){ return Cmp_Sprite(eid); }
     };
 }
 

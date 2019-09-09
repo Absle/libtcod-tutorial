@@ -19,7 +19,7 @@ namespace Satk
         int dx, dy;
 
         // members all components must have
-        static Cmp_Move _create(entity_id eid);
+        static Cmp_Move _create(entity_id eid){ return Cmp_Move(eid); }
     };
 }
 
