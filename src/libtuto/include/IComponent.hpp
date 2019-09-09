@@ -2,18 +2,19 @@
 #define ICOMPONENT_H
 
 #include "Defs.hpp"
+#include "Component_Common.hpp"
 #include <map>
 #include <memory>
 #include <vector>
 
 namespace Satk
 {
-    template<class Cmp_T, Cmp_Types t>
+    template<class Cmp_T, Cmp_Types cmp_num>
     class IComponent
     {
         protected:
         IComponent(entity_id eid) : owner_id(eid){}
-        //static bool registered; // TODO: remove/fix
+        static bool registered;
         static std::vector<Cmp_T> vec;
         static std::map<entity_id, cmp_id> id_table;
         entity_id owner_id;
@@ -21,19 +22,11 @@ namespace Satk
         public:
         entity_id owner(){ return owner_id; }
         const static cmp_mask mask;
-        //static cmp_mask mask(){ return mask; }
 
         static void add_component(entity_id eid, std::vector<entity_mask> &entities)
         {
-            // first time the component is created, register its removal function
-            /* TODO: remove/fix registration process
-            if(!registered)
-            {
-                registered = true;
-                Satk::register_component(t, remove_component);
-            }
-            */
-
+            assert(registered); // ensure component registered; use registered variable once
+            
             // creating and inserting component
             Cmp_T c = Cmp_T::_create(eid);
             vec.push_back(c);
@@ -63,18 +56,18 @@ namespace Satk
             return vec[id_table[eid]];
         }
     };
-    // TODO: remove/fix
-    //template<class Cmp_T, Cmp_Types t>
-    //bool IComponent<Cmp_T, t>::registered = false;
     
-    template<class Cmp_T, Cmp_Types t>
-    std::vector<Cmp_T> IComponent<Cmp_T, t>::vec;
+    template<class Cmp_T, Cmp_Types cmp_num>
+    bool IComponent<Cmp_T, cmp_num>::registered = Component::register_component(cmp_num, add_component, remove_component);
     
-    template<class Cmp_T, Cmp_Types t>
-    std::map<entity_id, cmp_id> IComponent<Cmp_T, t>::id_table;
+    template<class Cmp_T, Cmp_Types cmp_num>
+    std::vector<Cmp_T> IComponent<Cmp_T, cmp_num>::vec;
     
-    template<class Cmp_T, Cmp_Types t>
-    const cmp_mask IComponent<Cmp_T, t>::mask = 1 << t;
+    template<class Cmp_T, Cmp_Types cmp_num>
+    std::map<entity_id, cmp_id> IComponent<Cmp_T, cmp_num>::id_table;
+    
+    template<class Cmp_T, Cmp_Types cmp_num>
+    const cmp_mask IComponent<Cmp_T, cmp_num>::mask = 1 << cmp_num;
 }
 
 #endif

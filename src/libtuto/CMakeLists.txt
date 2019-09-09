@@ -3,6 +3,7 @@ add_library(
     src/Cmp_Move.cpp
     src/Cmp_Position.cpp
     src/Cmp_Sprite.cpp
+    src/Component_Common.cpp
     src/Entity_Manager.cpp
     src/Input.cpp
     src/System.cpp
