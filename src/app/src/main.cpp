@@ -23,14 +23,26 @@ int main()
     emgr.add<Cmp_Move>(player);
     emgr.add<Cmp_Sprite>(player);
     emgr.get<Cmp_Sprite>(player).ascii = '@';
-    emgr.get<Cmp_Sprite>(player).color = TCODColor::white;
+
+    //TODO: temp, need a better way to generate npc entities
+    entity_id npc = emgr.create();
+    emgr.add<Cmp_Position>(npc);
+    emgr.get<Cmp_Position>(npc).x = screen_width / 2;
+    emgr.get<Cmp_Position>(npc).y = screen_height / 2 + 5;
+    emgr.add<Cmp_Move>(npc);
+    emgr.add<Cmp_Sprite>(npc);
+    emgr.get<Cmp_Sprite>(npc).ascii = '@';
+    emgr.get<Cmp_Sprite>(npc).color = TCODColor::black;
+    emgr.get<Cmp_Sprite>(npc).background = TCODColor::white;
 
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     TCODConsole con = TCODConsole(screen_width, screen_height);
     con.setDefaultForeground(TCODColor::white);
     con.setDefaultBackground(TCODColor::black);
 
-    // primary game loop
+    /* * * * * * * * * * *
+     * Primary Game Loop *
+     * * * * * * * * * * */
     while(!TCODConsole::isWindowClosed() && running)
     {   
         // blitting console rendered last loop onto root
