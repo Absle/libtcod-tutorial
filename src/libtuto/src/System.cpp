@@ -26,8 +26,9 @@ namespace Satk
             int x = emgr.get<Cmp_Position>(eid).x;
             int y = emgr.get<Cmp_Position>(eid).y;
             char c = emgr.get<Cmp_Sprite>(eid).ascii;
-            TCODColor color = emgr.get<Cmp_Sprite>(eid).color;
-            con.putCharEx(x, y, c, color, TCODColor::black); // TODO: handle background colors better
+            auto color = emgr.get<Cmp_Sprite>(eid).color;
+            auto background = emgr.get<Cmp_Sprite>(eid).background;
+            con.putCharEx(x, y, c, color, background);
         }
     }
 }
