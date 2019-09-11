@@ -3,6 +3,7 @@
 
 #include "Component_Common.hpp"
 #include "Defs.hpp"
+#include <string>
 #include <vector>
 
 namespace Satk
@@ -25,6 +26,11 @@ namespace Satk
         template<class Cmp_T> void remove(entity_id eid); // removes Cmp_T component from an entity
         void remove_all(entity_id eid);
         template<class Cmp_T> Cmp_T& get(entity_id eid);
+
+        // debug functions
+        std::stringstream entity_stream(entity_id eid);
+        void print_entity(entity_id eid);
+        void print_all_entities();
     };
 
     template<class Cmp_T>

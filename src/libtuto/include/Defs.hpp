@@ -3,7 +3,11 @@
 
 #include <array>
 #include <bitset>
+#include <cassert>
+#include <iostream>
+#include <sstream>
 #include <string>
+#include <vector>
 
 namespace Satk
 {

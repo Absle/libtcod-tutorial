@@ -3,7 +3,6 @@
 
 #include "Defs.hpp"
 #include "Component_Common.hpp"
-#include <cassert>
 #include <map>
 #include <memory>
 #include <vector>
@@ -21,8 +20,15 @@ namespace Satk
         entity_id owner_id;
 
         public:
-        entity_id owner(){ return owner_id; }
         const static cmp_mask mask;
+        entity_id owner(){ return owner_id; }
+        // TODO: expand this? problems using non-static function (ie virtual)
+        static std::stringstream component_stream(entity_id eid)
+        {
+            std::stringstream s;
+            s << "[" << id_table[eid] << "]";
+            return s;
+        }
 
         static void add_component(entity_id eid, std::vector<entity_mask> &entities)
         {
@@ -68,7 +74,7 @@ namespace Satk
     };
     
     template<class Cmp_T, Cmp_Types cmp_num>
-    bool IComponent<Cmp_T, cmp_num>::registered = Component::register_component(cmp_num, add_component, remove_component, remap_component);
+    bool IComponent<Cmp_T, cmp_num>::registered = Component::register_component(cmp_num, add_component, remove_component, remap_component, component_stream);
     
     template<class Cmp_T, Cmp_Types cmp_num>
     std::vector<Cmp_T> IComponent<Cmp_T, cmp_num>::vec;

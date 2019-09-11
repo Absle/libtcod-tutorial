@@ -3,8 +3,13 @@
 
 using namespace Satk;
 
+void test();
+void entity_manager_test();
+
 int main()
 {
+    //test(); // TODO: remove/comment/handle somehow
+
     bool running = true;
     int screen_width = 160, screen_height = 90;
     TCOD_key_t key;
@@ -74,4 +79,53 @@ int main()
     }
 
     return 0;
+}
+
+// TODO: make proper unit test setup
+void test()
+{
+    std::clog << "Beginning test..." << "\n\n";
+    entity_manager_test();
+}
+// TODO: move to proper unit test setup
+void entity_manager_test()
+{
+    Entity_Manager emgr;
+    auto e0 = emgr.create();
+    auto e1 = emgr.create();
+    auto e2 = emgr.create();
+    auto e3 = emgr.create();
+    emgr.print_all_entities();
+
+    emgr.add<Cmp_Move>(e0);
+    emgr.print_all_entities();
+    emgr.add<Cmp_Position>(e1);
+    emgr.get<Cmp_Position>(e1).x = 1;
+    emgr.print_all_entities();
+    emgr.add<Cmp_Sprite>(e2);
+    emgr.print_all_entities();
+    emgr.add<Cmp_Move>(e3);
+    emgr.print_all_entities();
+    emgr.add<Cmp_Position>(e3);
+    emgr.get<Cmp_Position>(e3).y = 1;
+    emgr.print_all_entities();
+    emgr.add<Cmp_Sprite>(e3);
+    emgr.print_all_entities();
+    
+    int x1 = emgr.get<Cmp_Position>(e1).x;
+    int y1 = emgr.get<Cmp_Position>(e1).y;
+    std::clog << "e1 pos: (" << x1 << ", " << y1 << ")" << "\n";
+    int x3 = emgr.get<Cmp_Position>(e3).x;
+    int y3 = emgr.get<Cmp_Position>(e3).y;
+    std::clog << "e3 pos: (" << x3 << ", " << y3 << ")" << "\n";
+    emgr.remove<Cmp_Position>(e1);
+    emgr.print_all_entities();
+    x3 = emgr.get<Cmp_Position>(e3).x;
+    y3 = emgr.get<Cmp_Position>(e3).y;
+    std::clog << "e3 pos: (" << x3 << ", " << y3 << ")" << "\n";
+    emgr.destroy(e1);
+    x3 = emgr.get<Cmp_Position>(e3).x;
+    y3 = emgr.get<Cmp_Position>(e3).y;
+    std::clog << "e3 pos: (" << x3 << ", " << y3 << ")" << "\n";
+    emgr.print_all_entities();
 }
