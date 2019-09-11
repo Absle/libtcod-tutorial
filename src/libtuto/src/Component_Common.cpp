@@ -6,16 +6,33 @@ namespace Satk
     {
         namespace
         {
-            std::array<add_func, Cmp_Types::CMP_END> add_a = {nullptr};
-            std::array<remove_func, Cmp_Types::CMP_END> rem_a;
+            std::array<add_func, Cmp_Types::CMP_END> add_a;
+            std::array<remove_func, Cmp_Types::CMP_END> remove_a;
+            std::array<remap_func, Cmp_Types::CMP_END> remap_a;
         }
 
-        bool register_component(Cmp_Types cmp_num, add_func add, remove_func rem)
+        bool register_component(Cmp_Types cmp_num, add_func add, remove_func remove, remap_func remap)
         {
-            assert(add_a[cmp_num] == nullptr && rem_a[cmp_num] == nullptr); // ensure each component is registered exactly once
+            assert(add_a[cmp_num] == nullptr && remove_a[cmp_num] == nullptr && remap_a[cmp_num] == nullptr); // ensure each component is registered exactly once
             add_a[cmp_num] = add;
-            rem_a[cmp_num] = rem;
+            remove_a[cmp_num] = remove;
+            remap_a[cmp_num] = remap;
             return true;
+        }
+
+        void add_component_type(entity_id eid, std::vector<entity_mask> &entities, Cmp_Types cmp_type)
+        {
+            add_a[cmp_type](eid, entities);
+        }
+
+        void remove_component_type(entity_id eid, std::vector<entity_mask> &entities, Cmp_Types cmp_type)
+        {
+            remove_a[cmp_type](eid, entities);
+        }
+
+        void remap_component_type(entity_id old_eid, entity_id new_eid, Cmp_Types cmp_type)
+        {
+            remap_a[cmp_type](old_eid, new_eid);
         }
     }
 }

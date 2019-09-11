@@ -1,6 +1,7 @@
 #ifndef ENTITY_MANAGER_H
 #define ENTITY_MANAGER_H
 
+#include "Component_Common.hpp"
 #include "Defs.hpp"
 #include <vector>
 
@@ -15,13 +16,14 @@ namespace Satk
         Entity_Manager() : entity_vec() {}
         
         // entity functions
-        entity_id create();
-        void destroy(entity_id eid);
+        entity_id create(); // creates entity
+        void destroy(entity_id eid); // destroys entity
         std::vector<entity_mask>& entities(){ return entity_vec; }
 
         // component functions
-        template<class Cmp_T> void add(entity_id eid);
-        template<class Cmp_T> void remove(entity_id eid);
+        template<class Cmp_T> void add(entity_id eid); // adds a Cmp_T component to an entity
+        template<class Cmp_T> void remove(entity_id eid); // removes Cmp_T component from an entity
+        void remove_all(entity_id eid);
         template<class Cmp_T> Cmp_T& get(entity_id eid);
     };
 

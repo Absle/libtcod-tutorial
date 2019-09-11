@@ -3,6 +3,7 @@
 
 #include "Defs.hpp"
 #include "Component_Common.hpp"
+#include <cassert>
 #include <map>
 #include <memory>
 #include <vector>
@@ -38,9 +39,9 @@ namespace Satk
         static void remove_component(entity_id eid, std::vector<entity_mask> &entities)
         {
             // remove bit from entity mask
-            entity_mask temp_mask = mask;
-            temp_mask.flip();
-            entities[eid] &= temp_mask;
+            entity_mask inverted_mask = mask;
+            inverted_mask.flip();
+            entities[eid] &= inverted_mask;
 
             // swap and pop_back component object out of vector
             cmp_id cid = id_table.find(eid)->second;
@@ -55,10 +56,19 @@ namespace Satk
         {
             return vec[id_table[eid]];
         }
+
+        static void remap_component(entity_id old_eid, cmp_id new_eid)
+        {
+            assert(id_table.find(new_eid) == id_table.end()); // ensure that new_eid is not already in use
+            auto table_entry = id_table.find(old_eid);
+            assert(table_entry != id_table.end()); // ensure that old_eid is actually in use
+            id_table.insert(std::map<entity_id, cmp_id>::value_type(new_eid, table_entry->second)); // inserting value onto new key
+            id_table.erase(old_eid);
+        }
     };
     
     template<class Cmp_T, Cmp_Types cmp_num>
-    bool IComponent<Cmp_T, cmp_num>::registered = Component::register_component(cmp_num, add_component, remove_component);
+    bool IComponent<Cmp_T, cmp_num>::registered = Component::register_component(cmp_num, add_component, remove_component, remap_component);
     
     template<class Cmp_T, Cmp_Types cmp_num>
     std::vector<Cmp_T> IComponent<Cmp_T, cmp_num>::vec;
