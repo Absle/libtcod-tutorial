@@ -4,9 +4,6 @@
 #include "Defs.hpp"
 #include "IComponent.hpp"
 
-#include <map>
-#include <vector>
-
 namespace Satk
 {
     class Cmp_Move : public IComponent<Cmp_Move, CMP_MOVE>

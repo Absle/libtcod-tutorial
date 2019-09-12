@@ -3,6 +3,7 @@
 
 using namespace Satk;
 
+// TODO: need better testing setup
 void test();
 void entity_manager_test();
 
@@ -12,6 +13,8 @@ int main()
 
     bool running = true;
     int screen_width = 160, screen_height = 90;
+    int map_width = screen_width, map_height = screen_height;
+
     TCOD_key_t key;
     TCOD_mouse_t mouse;
     Entity_Manager emgr;
@@ -32,8 +35,8 @@ int main()
     emgr.add<Cmp_Move>(npc);
     emgr.add<Cmp_Sprite>(npc);
     emgr.get<Cmp_Sprite>(npc).ascii = '@';
-    emgr.get<Cmp_Sprite>(npc).color = TCODColor::black;
-    emgr.get<Cmp_Sprite>(npc).background = TCODColor::white;
+    emgr.get<Cmp_Sprite>(npc).color = TCODColor::yellow;
+    emgr.get<Cmp_Sprite>(npc).background = TCODColor::black;
 
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     TCODConsole con = TCODConsole(screen_width, screen_height);

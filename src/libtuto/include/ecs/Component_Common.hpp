@@ -2,8 +2,6 @@
 #define COMPONENT_COMMON_H
 
 #include "Defs.hpp"
-#include <array>
-#include <vector>
 
 namespace Satk
 {

@@ -4,6 +4,7 @@
 #include "Cmp_Move.hpp"
 #include "Cmp_Position.hpp"
 #include "Cmp_Sprite.hpp"
+#include "Defs.hpp"
 #include "Entity_Manager.hpp"
 
 #include "libtcod.hpp"

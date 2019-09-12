@@ -1,12 +1,16 @@
 #ifndef DEFS_H
 #define DEFS_H
 
+#include "libtcod.hpp"
+
 #include <array>
 #include <bitset>
 #include <cassert>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <string>
+#include <tuple>
 #include <vector>
 
 namespace Satk

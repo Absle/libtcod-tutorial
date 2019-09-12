@@ -4,11 +4,6 @@
 #include "Defs.hpp"
 #include "IComponent.hpp"
 
-#include "libtcod.hpp"
-
-#include <map>
-#include <vector>
-
 namespace Satk
 {
     class Cmp_Sprite : public IComponent<Cmp_Sprite, CMP_SPRITE>

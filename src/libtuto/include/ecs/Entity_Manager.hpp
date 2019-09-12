@@ -3,8 +3,6 @@
 
 #include "Component_Common.hpp"
 #include "Defs.hpp"
-#include <string>
-#include <vector>
 
 namespace Satk
 {

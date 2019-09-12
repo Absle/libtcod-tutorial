@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "libtcod.hpp"
+#include "Defs.hpp"
 
 namespace Satk
 {

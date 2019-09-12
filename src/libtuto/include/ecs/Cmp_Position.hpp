@@ -4,18 +4,16 @@
 /*
 COMPONENT ADDING CHECKLIST:
     - Add an element to the Cmp_Types enum
+    - Add a Cmp_Name
     - Add include of header file to libtuto.hpp
     - Set header guards and class name
-    - Create constructor and _create function with proper return type
-    - Inherit IComponent with <Cmp_ClassName, CMP_NEW_ENUM> template parameters
     - Add component-specific variables
+    - Create constructor and _create function (with proper return type) and accept an owner eid param
+    - Inherit IComponent with <Cmp_ClassName, CMP_NEW_ENUM> template parameters
 */
 
 #include "Defs.hpp"
 #include "IComponent.hpp"
-
-#include <map>
-#include <vector>
 
 namespace Satk
 {
