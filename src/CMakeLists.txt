@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+set(CXX_STANDARD 17) # TODO update to latest version of cmake so we can do this properly
 
 project(
     libtcod-tut
