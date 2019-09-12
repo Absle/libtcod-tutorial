@@ -14,7 +14,11 @@ namespace Satk
 
         bool register_component(Cmp_Types cmp_num, add_func add, remove_func remove, remap_func remap, stream_func stream)
         {
-            assert(add_a[cmp_num] == nullptr && remove_a[cmp_num] == nullptr && remap_a[cmp_num] == nullptr && stream_a[cmp_num] == nullptr); // ensure each component is registered exactly once
+            // ensure each component is registered exactly once
+            assert( add_a[cmp_num] == nullptr && 
+                    remove_a[cmp_num] == nullptr && 
+                    remap_a[cmp_num] == nullptr && 
+                    stream_a[cmp_num] == nullptr);
             add_a[cmp_num] = add;
             remove_a[cmp_num] = remove;
             remap_a[cmp_num] = remap;
