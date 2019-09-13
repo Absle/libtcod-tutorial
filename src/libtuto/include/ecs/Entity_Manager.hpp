@@ -20,7 +20,7 @@ namespace Satk
         std::vector<entity_mask>& entities(){ return entity_vec; }
 
         // component functions
-        template<class Cmp_T> void add(entity_id eid); // adds a Cmp_T component to an entity
+        template<class... Cmp_T> void add(entity_id eid); // allows adding of multiple components
         template<class Cmp_T> void remove(entity_id eid); // removes Cmp_T component from an entity
         void remove_all(entity_id eid);
         template<class Cmp_T> Cmp_T& get(entity_id eid);
@@ -31,10 +31,10 @@ namespace Satk
         void print_all_entities();
     };
 
-    template<class Cmp_T>
+    template<class... Cmp_T>
     void Entity_Manager::add(entity_id eid)
     {
-        Cmp_T::add_component(eid, entity_vec);
+        (Cmp_T::add_component(eid, entity_vec), ...);
     }
 
     template<class Cmp_T>

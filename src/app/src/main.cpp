@@ -20,11 +20,12 @@ int main()
     Entity_Manager emgr;
 
     entity_id player = emgr.create();
-    emgr.add<Cmp_Position>(player);
+    emgr.add<Cmp_Position, Cmp_Move, Cmp_Sprite>(player);
+    //emgr.add<Cmp_Position>(player);
     emgr.get<Cmp_Position>(player).x = screen_width / 2;
     emgr.get<Cmp_Position>(player).y = screen_height / 2;
-    emgr.add<Cmp_Move>(player);
-    emgr.add<Cmp_Sprite>(player);
+    //emgr.add<Cmp_Move>(player);
+    //emgr.add<Cmp_Sprite>(player);
     emgr.get<Cmp_Sprite>(player).ascii = '@';
 
     //TODO: temp, need a better way to generate npc entities
