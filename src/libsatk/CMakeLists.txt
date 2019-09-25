@@ -2,8 +2,8 @@ add_library(
     libsatk STATIC
     src/ecs/Component_Manager.cpp
     src/ecs/Entity_Manager.cpp
-    src/ecs/System.cpp
     src/Input.cpp
+    src/System.cpp
 )
 
 target_include_directories(
