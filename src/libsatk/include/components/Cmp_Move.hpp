@@ -2,7 +2,6 @@
 #ifndef CMP_MOVE_H
 #define CMP_MOVE_H
 
-#include "Cmp_Type_Traits.hpp"
 #include "IComponent.hpp"
 #include "Satk_Common.hpp"
 

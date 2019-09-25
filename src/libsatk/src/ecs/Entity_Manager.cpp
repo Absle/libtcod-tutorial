@@ -21,7 +21,6 @@ void Satk::Entity_Manager::destroy(Satk::entity_id eid)
         Satk::cmp_mask temp_mask = 1 << i;
         if((entity_vec[eid] & temp_mask) == temp_mask)
         {
-            //TODO: Component::remap_component_type(old_eid, eid, Cmp_Types(i));
             cmgr.remap_comp_by_id(i, old_eid, eid);
         }
     }
@@ -35,7 +34,6 @@ void Satk::Entity_Manager::remove_all(Satk::entity_id eid)
         // if ent has cmp with cmp_num of i
         if((entity_vec[eid] & temp_mask) == temp_mask)
         {
-            //TODO: Component::remove_component_type(eid, entity_vec, (Cmp_Types)i);
             cmgr.remove_comp_by_id(i, eid, entity_vec);
         }
     }

@@ -1,6 +1,5 @@
 add_library(
-    libtuto STATIC
-    src/ecs/Component_Common.cpp
+    libsatk STATIC
     src/ecs/Component_Manager.cpp
     src/ecs/Entity_Manager.cpp
     src/ecs/System.cpp
@@ -8,14 +7,16 @@ add_library(
 )
 
 target_include_directories(
-    libtuto
+    libsatk
     INTERFACE include
     INTERFACE include/ecs
+    INTERFACE include/components
     PRIVATE include
     PRIVATE include/ecs
+    PRIVATE include/components
 )
 
 target_link_libraries(
-    libtuto
+    libsatk
     libtcod
 )

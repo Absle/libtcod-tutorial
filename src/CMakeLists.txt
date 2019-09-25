@@ -3,7 +3,7 @@ set(CXX_STANDARD 17) # TODO update to latest version of cmake so we can do this 
 
 project(
     libtcod-tut
-    VERSION 0.1.0.0
+    VERSION 0.2.0.0
     LANGUAGES CXX
 )
 
@@ -26,7 +26,7 @@ set_property(TARGET libtcod PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${libtcod_INC
 list(APPEND dirs ${libtcod_INCLUDE_DIRS}) #adding to dirs for .clang_complete
 
 # add subdirectories, libs first, app second
-add_subdirectory(libtuto)
+add_subdirectory(libsatk)
 add_subdirectory(app)
 
 # REMOVED: .clang_complete no longer need after move to VSCode

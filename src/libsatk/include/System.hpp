@@ -4,8 +4,8 @@
 #include "Cmp_Move.hpp"
 #include "Cmp_Position.hpp"
 #include "Cmp_Sprite.hpp"
-#include "Satk_Common.hpp"
 #include "Entity_Manager.hpp"
+#include "Satk_Common.hpp"
 
 #include "libtcod.hpp"
 

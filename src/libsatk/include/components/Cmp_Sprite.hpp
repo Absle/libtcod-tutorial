@@ -2,7 +2,6 @@
 #ifndef CMP_SPRITE_H
 #define CMP_SPRITE_H
 
-#include "Cmp_Type_Traits.hpp"
 #include "IComponent.hpp"
 #include "Satk_Common.hpp"
 
