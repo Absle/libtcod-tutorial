@@ -1,22 +1,28 @@
+
 #ifndef CMP_MOVE_H
 #define CMP_MOVE_H
 
-#include "Defs.hpp"
+#include "Cmp_Type_Traits.hpp"
 #include "IComponent.hpp"
+#include "Satk_Common.hpp"
 
 namespace Satk
 {
-    class Cmp_Move : public IComponent<Cmp_Move, CMP_MOVE>
+    class Cmp_Move : public IComponent<Cmp_Move, int, int>
     {
-        private:
-        Cmp_Move(entity_id eid) : IComponent(eid), dx(0), dy(0){}
-
         public:
-        // component-specific member variables
-        int dx, dy;
-
         // members all components must have
-        static Cmp_Move _create(entity_id eid){ return Cmp_Move(eid); }
+        Cmp_Move(entity_id eid) : IComponent(eid, 0, 0){}
+        Cmp_Move(entity_id eid, int _dx, int _dy) : IComponent(eid, _dx, _dy){}
+
+        // component-specific member variables
+        //int dx, dy;
+    };
+
+    template<>
+    struct Cmp_Type_Traits<Cmp_Move>
+    {
+        constexpr static char const * name = "Cmp_Move";
     };
 }
 

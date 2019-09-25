@@ -45,5 +45,9 @@ namespace Satk
         {
             return stream_a[cmp_type](eid);
         }
+
+
+        // TODO: new stuff
+        
     }
 }

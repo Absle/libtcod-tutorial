@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "Defs.hpp"
+#include "Satk_Common.hpp"
 
 namespace Satk
 {

@@ -1,24 +1,31 @@
+
 #ifndef CMP_SPRITE_H
 #define CMP_SPRITE_H
 
-#include "Defs.hpp"
+#include "Cmp_Type_Traits.hpp"
 #include "IComponent.hpp"
+#include "Satk_Common.hpp"
 
 namespace Satk
 {
-    class Cmp_Sprite : public IComponent<Cmp_Sprite, CMP_SPRITE>
+    class Cmp_Sprite : public IComponent<Cmp_Sprite, char, TCODColor, TCODColor>
     {
-        private:
-        Cmp_Sprite(entity_id eid) : IComponent(eid), ascii('?'), color(TCODColor::white), background(TCODColor::black){}
-
         public:
-        // component-specific member variables
-        char ascii;
-        TCODColor color;
-        TCODColor background;
-
         // members all components must have
-        static Cmp_Sprite _create(entity_id eid){ return Cmp_Sprite(eid); }
+        Cmp_Sprite(entity_id eid) : IComponent(eid, '?', TCODColor::white, TCODColor::black){}
+        Cmp_Sprite(entity_id eid, char _ascii, TCODColor _fore_color, TCODColor _back_color) :
+            IComponent(eid, _ascii, _fore_color, _back_color) {}
+
+        // component-specific member variables
+        //char ascii;
+        //TCODColor color;
+        //TCODColor background;
+    };
+
+    template<>
+    struct Cmp_Type_Traits<Cmp_Sprite>
+    {
+        constexpr static char const * name = "Cmp_Sprite";
     };
 }
 

@@ -1,7 +1,7 @@
 #ifndef CMP_POSITION_H
 #define CMP_POSITION_H
 
-/*
+/* TODO: fix this checklist, completely borked right now
 COMPONENT ADDING CHECKLIST:
     - Add an element to the Cmp_Types enum
     - Add a Cmp_Name
@@ -12,22 +12,27 @@ COMPONENT ADDING CHECKLIST:
     - Inherit IComponent with <Cmp_ClassName, CMP_NEW_ENUM> template parameters
 */
 
-#include "Defs.hpp"
+#include "Cmp_Type_Traits.hpp"
 #include "IComponent.hpp"
+#include "Satk_Common.hpp"
 
 namespace Satk
 {
-    class Cmp_Position : public IComponent<Cmp_Position, CMP_POSITION>
+    class Cmp_Position : public IComponent<Cmp_Position, int, int>
     {
-        private:
-        Cmp_Position(entity_id eid) : IComponent(eid), x(0), y(0){}
-
         public:
-        // component-specific member variables
-        int x, y;
-
         // members all components must have
-        static Cmp_Position _create(entity_id eid){ return Cmp_Position(eid); }
+        Cmp_Position(entity_id eid) : IComponent(eid, 0 , 0){}
+        Cmp_Position(entity_id eid, int _x, int _y) : IComponent(eid, _x, _y){}
+
+        // component-specific member reference variables
+        //int &x, &y; // TODO?
+    };
+
+    template<>
+    struct Cmp_Type_Traits<Cmp_Position>
+    {
+        constexpr static char const * name = "Cmp_Position";
     };
 }
 

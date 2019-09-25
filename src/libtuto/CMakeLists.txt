@@ -1,6 +1,7 @@
 add_library(
     libtuto STATIC
     src/ecs/Component_Common.cpp
+    src/ecs/Component_Manager.cpp
     src/ecs/Entity_Manager.cpp
     src/ecs/System.cpp
     src/Input.cpp

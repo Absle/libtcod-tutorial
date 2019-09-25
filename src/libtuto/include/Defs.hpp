@@ -29,9 +29,5 @@ namespace Satk
         "Cmp_Position",
         "Cmp_Sprite"
     };
-    using entity_id = std::size_t;
-    using entity_mask = std::bitset<Cmp_Types::CMP_END>;
-    using cmp_id = std::size_t;
-    using cmp_mask = std::bitset<Cmp_Types::CMP_END>;
 }
 #endif

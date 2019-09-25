@@ -19,31 +19,25 @@ int main()
     TCOD_mouse_t mouse;
     Entity_Manager emgr;
 
+    // make player entity
     entity_id player = emgr.create();
     emgr.add<Cmp_Position, Cmp_Move, Cmp_Sprite>(player);
-    //emgr.add<Cmp_Position>(player);
-    emgr.get<Cmp_Position>(player).x = screen_width / 2;
-    emgr.get<Cmp_Position>(player).y = screen_height / 2;
-    //emgr.add<Cmp_Move>(player);
-    //emgr.add<Cmp_Sprite>(player);
-    emgr.get<Cmp_Sprite>(player).ascii = '@';
+    emgr.set<Cmp_Position>(player, screen_width / 2, screen_height / 2);
+    emgr.set<Cmp_Sprite>(player, '@', TCODColor::white, TCODColor::black);
 
     //TODO: temp, need a better way to generate npc entities
     entity_id npc = emgr.create();
-    emgr.add<Cmp_Position>(npc);
-    emgr.get<Cmp_Position>(npc).x = screen_width / 2;
-    emgr.get<Cmp_Position>(npc).y = screen_height / 2 + 5;
-    emgr.add<Cmp_Move>(npc);
-    emgr.add<Cmp_Sprite>(npc);
-    emgr.get<Cmp_Sprite>(npc).ascii = '@';
-    emgr.get<Cmp_Sprite>(npc).color = TCODColor::yellow;
-    emgr.get<Cmp_Sprite>(npc).background = TCODColor::black;
+    emgr.add<Cmp_Position, Cmp_Move, Cmp_Sprite>(npc);
+    emgr.set<Cmp_Position>(npc, screen_width / 2, screen_height / 2 - 5);
+    emgr.set<Cmp_Sprite>(npc, '@', TCODColor::yellow, TCODColor::black);
+    
+    emgr.print_all_entities();
 
     TCODConsole::initRoot(screen_width, screen_height, "libtcod C++ tutorial", false);
     TCODConsole con = TCODConsole(screen_width, screen_height);
     con.setDefaultForeground(TCODColor::white);
     con.setDefaultBackground(TCODColor::black);
-
+    
     /* * * * * * * * * * *
      * Primary Game Loop *
      * * * * * * * * * * */
@@ -62,27 +56,26 @@ int main()
         Input::command_type action_type;
         Input::command_val action_val;
         std::tie(action_type, action_val) = Input::handle_keys(key); // breaking data out of tuple
-
+    
         // move command
         if(action_type == Input::command_type::move)
         {
-            emgr.get<Cmp_Move>(player).dx = action_val.delta[0];
-            emgr.get<Cmp_Move>(player).dy = action_val.delta[1];
+            emgr.set<Cmp_Move>(player, action_val.delta[0], action_val.delta[1]);
         }
-
+    
         // fullscreen command
         if(action_type == Input::command_type::fullscreen)
         {
             TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
         }
-
+    
         // exit command
         if(action_type == Input::command_type::exit && action_val.flag)
         {
             TCOD_quit();
             running = false;
         }
-
+    
         /* * * * * * * * * * * * * * *
          * Apply systems to entities *
          * * * * * * * * * * * * * * */
@@ -94,9 +87,31 @@ int main()
         }
     }
 
+    // TODO: test
+    /*
+    Entity_Manager emgr;
+    entity_id tp = emgr.create();
+    emgr.add<Cmp_Move>(tp, std::make_tuple(1, 1));
+    emgr.add<Cmp_Position>(tp);
+    Cmp_Position::set_component(tp, std::make_tuple(5, 6));
+    emgr.create();
+    entity_id tp2 = emgr.create();
+    emgr.add<Cmp_Move, Cmp_Position, Cmp_Sprite>(tp2);
+    emgr.print_all_entities();
+    auto tp3 = emgr.create();
+    emgr.add<Cmp_Position, Cmp_Move>(tp3);
+    Cmp_Move::set_component(tp3, std::make_tuple(1,2));
+    Cmp_Position::set_component(tp3, std::make_tuple(2,1));
+    emgr.print_all_entities();
+    emgr.destroy(tp2);
+    emgr.print_all_entities();
+    */
+    
+
     return 0;
 }
 
+/* TODO remove comment out
 // TODO: make proper unit test setup
 void test()
 {
@@ -145,3 +160,4 @@ void entity_manager_test()
     std::clog << "e3 pos: (" << x3 << ", " << y3 << ")" << "\n";
     emgr.print_all_entities();
 }
+*/
